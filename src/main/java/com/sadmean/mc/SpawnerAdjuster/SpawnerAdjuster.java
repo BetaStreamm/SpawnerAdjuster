@@ -12,9 +12,9 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
-import com.sadmean.mc.SpawnerAdjuster.Config.Config;
+import net.milkbowl.vault.permission;
+import net.milkbowl.vault.permission;
+import net.milkbowl.vault.permission;
 
 public class SpawnerAdjuster extends JavaPlugin {
 
@@ -91,13 +91,13 @@ public class SpawnerAdjuster extends JavaPlugin {
         setThisPlugin(this); //not 100% sure
     }
 	 
-	private void setupPermissions() {
-		Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-			if (this.permissionHandler == null) {
-				if (permissionsPlugin != null) {
-					this.permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-				} else {
-					log_It("info", "Permission system not detected!");
+	private Boolean setupPermissions()
+    {        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) {
+            permission = permissionProvider.getProvider();
+        }
+        return (permission != null);
+	log_It("info", "Permission system not detected!");
 					//ignorePermissions = true;
 					if(!SuperPerms) {
 						log_It("info", "SuperPermissions also not found. Ignore Permissions forced to true");
